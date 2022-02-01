@@ -6,46 +6,57 @@ import java.util.function.UnaryOperator;
 public class Main {
 
     public static void main(String[] args) {
-        task1();
-        task2();
-        task3();
-        task4();
+//        task1();
+//        task2();
+//        task3();
+//        task4();
         task5();
-        System.out.println(task6("ab", "abba"));
-        System.out.println(task7("abc","bca"));
+        System.out.println(task6("abba", "ab") != null);
+        System.out.println(task7("abba","abbb"));
     }
 
     private static boolean task7(String s1, String s2) {
-        return task6(s1, s2) && s1.length() == s2.length();
+        if(s1.length() != s2.length())
+            return false;
+
+        Set<Character> set = task6(s1, s2);
+        if(set == null)
+            return false;
+
+        int sum1 = 0;
+        int sum2 = 0;
+        for(int i = 0; i < s1.length(); i++) {
+            sum1 += s1.charAt(i);
+            sum2 += s2.charAt(i);
+        }
+
+        return sum1 == sum2;
     }
 
-    private static boolean task6(String s1, String s2) {
-        Set<Character> set1 = new HashSet<Character>();
+    private static Set<Character> task6(String s1, String s2) {
+        Set<Character> set = new HashSet<Character>();
         for(char c : s1.toCharArray()) {
-            set1.add(c);
+            set.add(c);
         }
 
-        Set<Character> set2 = new HashSet<Character>();
+        if(set.size() > s2.length())
+            return null;
+
         for(char c : s2.toCharArray()) {
-            set2.add(c);
+            if(!set.contains(c))
+                return null;
         }
 
-        return set1.equals(set2);
+        return set;
     }
 
     private static void task5() {
         List<Integer> nums = new ArrayList<>(List.of(3, 2, 2, 8, 3, 4, 4, 5, 5, 6, 7));
-        List<Integer> tmpList = new ArrayList<>();
-        Set<Integer> set = new HashSet<Integer>();
-        for(int i : nums) {
-            if(!set.add(i))
-                tmpList.add(i);
-        }
+        List<Integer> tmpList = new ArrayList<>(nums);
 
         nums.replaceAll(t -> {
-            if(tmpList.contains(t))
+            if(t != 1 && tmpList.indexOf(t) != tmpList.lastIndexOf(t))
                 return 0;
-
             return 1;
         });
 
