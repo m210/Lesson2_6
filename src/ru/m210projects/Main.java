@@ -12,21 +12,26 @@ public class Main {
 //        task4();
         task5();
         System.out.println(task6("abba", "ab"));
-        System.out.println(task7("abba","abbb"));
+        System.out.println(task7("listen", "silent"));
     }
 
     private static boolean task7(String s1, String s2) {
         if(s1.length() != s2.length())
             return false;
 
-        int sum1 = 0;
-        int sum2 = 0;
-        for(int i = 0; i < s1.length(); i++) {
-            sum1 += s1.charAt(i);
-            sum2 += s2.charAt(i);
+        List<Character> list = new ArrayList<>();
+        for(char c : s1.toCharArray()) {
+            list.add(c);
         }
 
-        return sum1 == sum2;
+        for(Character c : s2.toCharArray()) {
+            if(!list.contains(c))
+                return false;
+
+            list.remove(c);
+        }
+
+        return list.size() == 0;
     }
 
     private static boolean task6(String s1, String s2) {
