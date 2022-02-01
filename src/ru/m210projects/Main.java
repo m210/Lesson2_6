@@ -11,16 +11,12 @@ public class Main {
 //        task3();
 //        task4();
         task5();
-        System.out.println(task6("abba", "ab") != null);
+        System.out.println(task6("abba", "ab"));
         System.out.println(task7("abba","abbb"));
     }
 
     private static boolean task7(String s1, String s2) {
         if(s1.length() != s2.length())
-            return false;
-
-        Set<Character> set = task6(s1, s2);
-        if(set == null)
             return false;
 
         int sum1 = 0;
@@ -33,21 +29,21 @@ public class Main {
         return sum1 == sum2;
     }
 
-    private static Set<Character> task6(String s1, String s2) {
+    private static boolean task6(String s1, String s2) {
         Set<Character> set = new HashSet<Character>();
         for(char c : s1.toCharArray()) {
             set.add(c);
         }
 
         if(set.size() > s2.length())
-            return null;
+            return false;
 
         for(char c : s2.toCharArray()) {
             if(!set.contains(c))
-                return null;
+                return false;
         }
 
-        return set;
+        return true;
     }
 
     private static void task5() {
